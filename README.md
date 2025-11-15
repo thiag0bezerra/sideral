@@ -1,9 +1,5 @@
 # create-t3-turbo
 
-> [!NOTE]
->
-> create-t3-turbo now includes the option to use Tanstack Start for the web app!
-
 ## Installation
 
 > [!NOTE]
@@ -33,19 +29,14 @@ It uses [Turborepo](https://turborepo.com) and contains:
 .vscode
   └─ Recommended extensions and settings for VSCode users
 apps
-  ├─ expo
+  ├─ mobile
   │   ├─ Expo SDK 54
   │   ├─ React Native 0.81 using React 19
   │   ├─ Navigation using Expo Router
   │   ├─ Tailwind CSS v4 using NativeWind v5
   │   └─ Typesafe API calls using tRPC
-  ├─ nextjs
-  │   ├─ Next.js 15
-  │   ├─ React 19
-  │   ├─ Tailwind CSS v4
-  │   └─ E2E Typesafe API Server & Client
-  └─ tanstack-start
-      ├─ Tanstack Start v1 (rc)
+  └─ web
+      ├─ Next.js 15
       ├─ React 19
       ├─ Tailwind CSS v4
       └─ E2E Typesafe API Server & Client
@@ -69,7 +60,7 @@ tooling
       └─ shared tsconfig you can extend from
 ```
 
-> In this template, we use `@acme` as a placeholder for package names. As a user, you might want to replace it with your own organization or project name. You can use find-and-replace to change all the instances of `@acme` to something like `@my-company` or `@project-name`.
+> In this template, we use `@ufpb-me` as a placeholder for package names. As a user, you might want to replace it with your own organization or project name. You can use find-and-replace to change all the instances of `@ufpb-me` to something like `@my-company` or `@project-name`.
 
 ## Quick Start
 
@@ -79,10 +70,6 @@ tooling
 To get it running, follow the steps below:
 
 ### 1. Setup dependencies
-
-> [!NOTE]
->
-> While the repo does contain both a Next.js and Tanstack Start version of a web app, you can pick which one you like to use and delete the other folder before starting the setup.
 
 ```bash
 # Install dependencies
@@ -102,7 +89,7 @@ This project uses [Better Auth](https://www.better-auth.com) for authentication.
 
 ```bash
 # Generate the Better Auth schema
-pnpm --filter @acme/auth generate
+pnpm --filter @ufpb-me/auth generate
 ```
 
 This command runs the Better Auth CLI with the following configuration:
@@ -114,7 +101,7 @@ The generation process:
 
 1. Reads the Better Auth configuration from `packages/auth/script/auth-cli.ts`
 2. Generates the appropriate database schema based on your auth setup
-3. Outputs a Drizzle-compatible schema file to the `@acme/db` package
+3. Outputs a Drizzle-compatible schema file to the `@ufpb-me/db` package
 
 > **Note**: The `auth-cli.ts` file is placed in the `script/` directory (instead of `src/`) to prevent accidental imports from other parts of the codebase. This file is exclusively for CLI schema generation and should **not** be used directly in your application. For runtime authentication, use the configuration from `packages/auth/src/index.ts`.
 
@@ -126,7 +113,7 @@ For more information about the Better Auth CLI, see the [official documentation]
 
 1. Make sure you have XCode and XCommand Line Tools installed [as shown on expo docs](https://docs.expo.dev/workflow/ios-simulator).
 
-   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` from `apps/expo`, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
+   > **NOTE:** If you just installed XCode, or if you have updated it, you need to open the simulator manually once. Run `npx expo start` from `apps/mobile`, and then enter `I` to launch Expo Go. After the manual launch, you can run `pnpm dev` in the root directory.
 
    ```diff
    +  "dev": "expo start --ios",
@@ -138,7 +125,7 @@ For more information about the Better Auth CLI, see the [official documentation]
 
 1. Install Android Studio tools [as shown on expo docs](https://docs.expo.dev/workflow/android-studio-emulator).
 
-2. Change the `dev` script at `apps/expo/package.json` to open the Android emulator.
+2. Change the `dev` script at `apps/mobile/package.json` to open the Android emulator.
 
    ```diff
    +  "dev": "expo start --android",
@@ -203,7 +190,7 @@ If you need to share runtime code between the client and server, such as input v
 
 Let's deploy the Next.js application to [Vercel](https://vercel.com). If you've never deployed a Turborepo app there, don't worry, the steps are quite straightforward. You can also read the [official Turborepo guide](https://vercel.com/docs/concepts/monorepos/turborepo) on deploying to Vercel.
 
-1. Create a new project on Vercel, select the `apps/nextjs` folder as the root directory. Vercel's zero-config system should handle all configurations for you.
+1. Create a new project on Vercel, select the `apps/web` folder as the root directory. Vercel's zero-config system should handle all configurations for you.
 
 2. Add your `POSTGRES_URL` environment variable.
 
@@ -231,7 +218,7 @@ Deploying your Expo application works slightly differently compared to Next.js o
    eas login
 
    # Configure your Expo app
-   cd apps/expo
+   cd apps/mobile
    eas build:configure
    ```
 
@@ -259,7 +246,7 @@ Deploying your Expo application works slightly differently compared to Next.js o
 
    ```bash
    # Add the `expo-updates` library to your Expo app
-   cd apps/expo
+   cd apps/mobile
    pnpm expo install expo-updates
 
    # Configure EAS Update
@@ -271,7 +258,7 @@ Deploying your Expo application works slightly differently compared to Next.js o
 8. Now that everything is ready for updates, let's create a new update for `production` builds. With the `--auto` flag, EAS Update uses your current git branch name and commit message for this update. See [How EAS Update works](https://docs.expo.dev/eas-update/how-eas-update-works/#publishing-an-update) for more information.
 
    ```bash
-   cd apps/expo
+   cd apps/mobile
    eas update --auto
    ```
 

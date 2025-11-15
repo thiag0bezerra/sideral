@@ -1,5 +1,5 @@
 {
-  "name": "@acme/api",
+  "name": "@ufpb-me/api",
   "private": true,
   "type": "module",
   "exports": {
@@ -18,20 +18,20 @@
     "typecheck": "tsc --noEmit --emitDeclarationOnly false"
   },
   "dependencies": {
-    "@acme/auth": "workspace:*",
-    "@acme/db": "workspace:*",
-    "@acme/validators": "workspace:*",
     "@trpc/server": "catalog:",
+    "@ufpb-me/auth": "workspace:*",
+    "@ufpb-me/db": "workspace:*",
+    "@ufpb-me/validators": "workspace:*",
     "superjson": "2.2.3",
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@acme/eslint-config": "workspace:*",
-    "@acme/prettier-config": "workspace:*",
-    "@acme/tsconfig": "workspace:*",
+    "@ufpb-me/eslint-config": "workspace:*",
+    "@ufpb-me/prettier-config": "workspace:*",
+    "@ufpb-me/tsconfig": "workspace:*",
     "eslint": "catalog:",
     "prettier": "catalog:",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@ufpb-me/prettier-config"
 }
